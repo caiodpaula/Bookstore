@@ -1,5 +1,5 @@
-import { BookRepository } from '../repositories/bookRepository';
-import { Book } from '../models/bookModel';
+import { BookRepository } from "../repositories/bookRepository";
+import { Book } from "../models/bookModel";
 
 export class BookService {
   private bookRepository: BookRepository;
@@ -14,7 +14,12 @@ export class BookService {
   }
 
   // Método para adicionar um novo livro
-  async addBook(title: string, author: string, price: number, category: number): Promise<Book> {
+  async addBook(
+    title: string,
+    author: string,
+    price: number,
+    category: number,
+  ): Promise<Book> {
     // Aqui você pode adicionar validações adicionais se necessário
     return await this.bookRepository.addBook(title, author, price, category);
   }
@@ -23,3 +28,4 @@ export class BookService {
   async getBookById(id: number): Promise<Book | null> {
     return await this.bookRepository.getBookById(id);
   }
+}

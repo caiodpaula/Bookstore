@@ -5,6 +5,7 @@
     "target": "es6",
     "typeRoots": ["./node_modules/@types", "./src/@types"],
     "strict": true,
+    "useUnknownInCatchVariables": false,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true

@@ -8,7 +8,7 @@ const createUsersTable = async () => {
         id SERIAL PRIMARY KEY,
         name VARCHAR(100) NOT NULL,
         email VARCHAR(100) UNIQUE NOT NULL,
-        passwordHash VARCHAR(255) NOT NULL,
+        passwordHash VARCHAR(255) NOT NULL
       );
     `;
     await client.query(queryText);

@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
+    "target": "ES6",
     "module": "commonjs",
-    "target": "es6",
-    "typeRoots": ["./node_modules/@types", "./src/@types"],
+    "outDir": "./dist",
+    "rootDir": "./src",
     "strict": true,
-    "useUnknownInCatchVariables": false,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  }
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }

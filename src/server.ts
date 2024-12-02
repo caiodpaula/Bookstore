@@ -1,19 +1,17 @@
+// src/server.ts
+
 import express from "express";
-import dotenv from "dotenv";
+import bodyParser from "body-parser";
+import authRoutes from "./routes/authRoutes";
 import bookRoutes from "./routes/bookRoutes";
-import authRoutes from "./routes/authRoutes"; // Importando as rotas de autenticação
 
-dotenv.config();
-
-const app = express();
-app.use(express.json()); // Para permitir o parsing de JSON
-
-// Usando as rotas
-app.use("/api", bookRoutes);
-app.use("/api/auth", authRoutes); // Usando as rotas de autenticação
-
+export const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(bodyParser.json());
+app.use("/auth", authRoutes); // Prefixo para as rotas de autenticação
+app.use("/", bookRoutes);
+
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Servidor rodando na porta ${PORT}`);
 });

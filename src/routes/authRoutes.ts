@@ -1,12 +1,11 @@
+// src/routes/authRoutes.ts
+
 import { Router } from "express";
-import { createUser, listUsers } from "../controllers/UserController"; // Importando os métodos do userController
+import { register, login } from "../controllers/authController";
 
 const router = Router();
 
-// Rota para registro de um novo usuário
-router.post("/register", createUser);
-
-// Rota para listar todos os usuários (opcional)
-router.get("/users", listUsers); // Adicionando uma rota para listar usuários
+router.post("/register", register);
+router.post("/login", login);
 
 export default router;

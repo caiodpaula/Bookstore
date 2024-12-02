@@ -1,10 +1,12 @@
-import { Router } from "express";
-import { getAllBooks, addBook } from "../controllers/bookController";
+import express from "express";
+import { getAllBooks, addBook } from "../controllers/bookControllers";
 
-const router = Router();
+const router = express.Router();
 
-router.get("/books", getAllBooks);
+// Rota para listar todos os livros
+router.get("/", getAllBooks);
 
-router.post("/books", addBook);
+// Rota para adicionar um novo livro
+router.post("/", addBook);
 
 export default router;

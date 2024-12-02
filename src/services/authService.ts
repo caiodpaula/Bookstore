@@ -1,30 +1,41 @@
-import { UserRepository } from "../repositories/userRepository";
-import { hashPassword, comparePassword } from "../helpers/hashHelper";
-import { createSession } from "../helpers/sessionHelper"; 
+// src/services/authService.ts
+
+import bcrypt from "bcrypt";
+import { v4 as uuidv4 } from "uuid"; // Para gerar IDs únicos
+import { UserModel } from "../models/user"; // Importando o modelo de usuário
 
 export class AuthService {
-  private userRepository: UserRepository;
-
-  constructor() {
-    this.userRepository = new UserRepository();
-  }
-
-  // Criação de novo usuário com senha hashed
+  // Método para registrar um novo usuário
   async registerUser(name: string, email: string, password: string) {
-    const passwordHash = await hashPassword(password);
-    const user = await this.userRepository.addUser(name, email, passwordHash);
-    return user;
+    const existingUser = UserModel.findOne(email);
+    if (existingUser) {
+      throw new Error("Email já está em uso");
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = {
+      id: uuidv4(),
+      name,
+      email,
+      password: hashedPassword,
+    };
+
+    UserModel.save(user);
+    return { id: user.id, name: user.name, email: user.email }; // Retorna informações do usuário sem a senha
   }
 
-  // Login de usuário
+  // Método para fazer login de um usuário
   async loginUser(email: string, password: string) {
-    const user = await this.userRepository.getUserByEmail(email);
-    if (!user) throw new Error("Usuário não encontrado");
+    const user = UserModel.findOne(email);
+    if (!user) {
+      throw new Error("Usuário não encontrado");
+    }
 
-    const isPasswordValid = await comparePassword(password, user.passwordHash); 
-    if (!isPasswordValid) throw new Error("Senha incorreta");
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      throw new Error("Senha inválida");
+    }
 
-    const token = createSession(user.id); // Cria a sessão e gera o token
-    return { user, token }; // Retorna o usuário e o token
+    return { id: user.id, name: user.name, email: user.email }; // Retorna informações do usuário sem a senha
   }
 }

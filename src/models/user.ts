@@ -1,13 +1,13 @@
-// src/models/User.ts
+
 
 interface User {
-  id: string;
+  id: string
   name: string;
   email: string;
   password: string;
 }
 
-const users: User[] = []; // Simulação de banco de dados em memória
+const users: User[] = []; 
 
 export const UserModel = {
   findOne: (email: string) => users.find((user) => user.email === email),

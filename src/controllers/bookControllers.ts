@@ -7,12 +7,12 @@ const bookRepository = new BookRepository();
  * Middleware para validação dos dados do livro.
  */
 const validateBookData = (req: Request, res: Response, next: Function) => {
-  const { name, subtitle, image, price } = req.body;
+  const { title, subtitle, image, price } = req.body;
 
-  if (!name || typeof name !== "string" || name.trim() === "") {
+  if (!title || typeof title !== "string" || title.trim() === "") {
     return res
       .status(400)
-      .json({ error: 'O campo "name" é obrigatório e deve ser uma string.' });
+      .json({ error: 'O campo "title" é obrigatório e deve ser uma string.' });
   }
   if (!subtitle || typeof subtitle !== "string" || subtitle.trim() === "") {
     return res
@@ -37,7 +37,7 @@ const validateBookData = (req: Request, res: Response, next: Function) => {
       });
   }
 
-  next(); // Se tudo estiver correto, prossegue para a próxima função
+  next();
 };
 
 /**
@@ -54,20 +54,19 @@ export const getAllBooks = async (req: Request, res: Response) => {
 };
 
 /**
- * Adiciona um novo livro.
+  Adiciona um novo livro.
  */
 export const addBook = async (req: Request, res: Response) => {
-  const { name, subtitle, image, price } = req.body;
+  const { title, subtitle, image, price } = req.body;
 
   try {
     // Adiciona o livro no banco de dados
-    const book = await bookRepository.addBook(name, subtitle, image, price);
+    const book = await bookRepository.addBook(title, subtitle, image, price);
     res.status(201).json(book); // Sucesso: Retorna 201 com os dados do livro
   } catch (error) {
     console.error(error); // Log do erro para depuração
-    res.status(500).json({ error: "Erro ao adicionar o livro." }); // Erro interno do servidor
+    res.status(500).json({ error: "Erro ao adicionar o livro." }); 
   }
 };
 
-// Exportando o middleware de validação para uso em rotas
 export { validateBookData };

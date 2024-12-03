@@ -27,15 +27,15 @@ export class BookRepository {
    * @param price - Preço do livro.
    * @returns Uma promessa que resolve para o livro adicionado.
    */
-  async addBook(name: string, subtitle: string, image: string, price: number): Promise<Book> {
+  async addBook(title: string, subtitle: string, image: string, price: number): Promise<Book> {
     const query = `
-      INSERT INTO books (name, subtitle, image, price)
+      INSERT INTO books (title, subtitle, image, price)
       VALUES ($1, $2, $3, $4)
       RETURNING *;
     `;
 
     try {
-      const { rows } = await this.pool.query<Book>(query, [name, subtitle, image, price]);
+      const { rows } = await this.pool.query<Book>(query, [title, subtitle, image, price]);
       return rows[0];
     } catch (error) {
       console.error('Erro ao adicionar o livro:', error);

@@ -39,7 +39,7 @@ Este projeto foi criado como parte de um exercício acadêmico e utiliza a arqui
 - **Rota:** `/books`
 - **Descrição:** Cadastra um novo livro no sistema.
 - **Body:**
-
+  
   ```json
   {
     "name": "Título do Livro",
@@ -97,7 +97,7 @@ Certifique-se de ter instalado:
 - As tabelas foram criadas no Supabase.
    - Crie uma tabela chamada `books` com as colunas `id`, `name`, `subtitle`, `image` e `price`.
    - Você pode usar o seguinte script SQL como exemplo:
-
+     
      ```sql
      CREATE TABLE books (
        id SERIAL PRIMARY KEY,
@@ -116,6 +116,8 @@ Certifique-se de ter instalado:
    ```
 
 ### 3. Executando a Aplicação
+
+Para rodar o código front-end e realizar o cadastro de livros, certifique-se de que o servidor está sendo executado dentro do Replit.
 
 Para iniciar o servidor:
 
@@ -138,3 +140,4 @@ A API estará acessível em `http://localhost:3000`.
 Este projeto está sob a licença MIT.
 
 Autor: Caio Pereira de Paula
+
